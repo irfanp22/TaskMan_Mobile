@@ -1,13 +1,93 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>task</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Task Manager</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="open_modal_tambah(true)" shape="round">
+        <ion-icon slot="icon-only" name="add-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">task</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-card *ngFor="let item of task">
+    <ion-item lines="none">
+      <ion-label>
+        {{item.title}}
+        <p>{{item.status ?'Process':'Done'}}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-icon name="create-outline" (click)="open_modal_edit(true, item.id)" size="large" shape="round" fill="clear"
+          color="warning"></ion-icon>
+        <ion-icon name="trash-outline" (click)="delTask(item.id)" size="large" shape="round" fill="clear"
+          color="danger"></ion-icon>
+      </ion-buttons>
+    </ion-item>
+  </ion-card>
 </ion-content>
+
+<!-- Modal untuk Tambah Task -->
+<ion-modal [isOpen]="modal_tambah">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="cancel()" fill="clear">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title>Add Task</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-item>
+
+        <ion-input [(ngModel)]="title" placeholder="Insert Title" type="text" label="Title"></ion-input>
+      </ion-item>
+      <ion-item>
+
+        <ion-input [(ngModel)]="desc" placeholder="Insert Description" type="text" label="Description"></ion-input>
+      </ion-item>
+      <ion-button (click)="addTask()" expand="full">Add Task</ion-button>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+
+<!-- Modal untuk Edit Task -->
+<ion-modal [isOpen]="modal_edit">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="cancel()" fill="clear">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title>Edit Task</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-item>
+        <ion-input label="Title" [(ngModel)]="title" placeholder="Insert Title" type="text">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Description" [(ngModel)]="desc" placeholder="Insert Description" type="text">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Status</ion-label>
+        <ion-select [(ngModel)]="status" placeholder="Status" label="Status">
+          <ion-select-option value="1">Done</ion-select-option>
+          <ion-select-option value="0">Process</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-input [(ngModel)]="id" type="hidden"></ion-input>
+      <ion-button (click)="editTask()" expand="full">Edit Task</ion-button>
+    </ion-content>
+  </ng-template>
+</ion-modal>
