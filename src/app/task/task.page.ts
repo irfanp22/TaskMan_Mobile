@@ -13,7 +13,7 @@ export class TaskPage implements OnInit {
   modal_edit = false;
   id: any;
   title: any;
-  desc: any;
+  desk: any;
   status: any;
 
   constructor(public _apiService: ApiService, private modal: ModalController) { }
@@ -35,7 +35,7 @@ export class TaskPage implements OnInit {
   reset_model() {
     this.id = null;
     this.title = '';
-    this.desc = '';
+    this.desk = '';
     this.status = '';
   }
   open_modal_tambah(isOpen: boolean) {
@@ -58,11 +58,10 @@ export class TaskPage implements OnInit {
     this.reset_model();
   }
   addTask() {
-    if (this.title != '' && this.desc != '') {
+    if (this.title != '' && this.desk != '') {
       let data = {
         title: this.title,
-        desc: this.desc,
-        status: 0
+        desk: this.desk
       };
 
       this._apiService.tambah(data, '/tambah.php').subscribe({
@@ -104,7 +103,7 @@ export class TaskPage implements OnInit {
           let task = hasil;
           this.id = task.id;
           this.title = task.title;
-          this.desc = task.desc;
+          this.desk = task.desk;
           this.status = task.status
         },
         error: (error: any) => {
@@ -116,7 +115,7 @@ export class TaskPage implements OnInit {
     let data = {
       id: this.id,
       title: this.title,
-      desc: this.desc,
+      desk: this.desk,
       status: this.status,
     };
 

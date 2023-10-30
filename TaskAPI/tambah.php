@@ -4,10 +4,10 @@ $input = file_get_contents('php://input');
 $data = json_decode($input, true);
 //terima data dari mobile
 $title = trim($data['title']);
-$desc = trim($data['desc']);
+$desk = trim($data['desk']);
 http_response_code(201);
-if ($title != '' and $desc != '') {
-    $query = mysqli_query($koneksi, "insert into task(title,desc) values('$title','$desc')");
+if ($title != '' and $desk != '') {
+    $query = mysqli_query($koneksi, "insert into task(title,desk) values('$title','$desk')");
     $pesan = true;
 } else {
     $pesan = false;

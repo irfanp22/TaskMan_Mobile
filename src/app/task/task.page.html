@@ -17,7 +17,7 @@
     <ion-item lines="none">
       <ion-label>
         {{item.title}}
-        <p>{{item.status ?'Process':'Done'}}</p>
+        <p>{{item.status==1 ? 'Done':'Process'}}</p>
       </ion-label>
       <ion-buttons slot="end">
         <ion-icon name="create-outline" (click)="open_modal_edit(true, item.id)" size="large" shape="round" fill="clear"
@@ -49,7 +49,7 @@
       </ion-item>
       <ion-item>
 
-        <ion-input [(ngModel)]="desc" placeholder="Insert Description" type="text" label="Description"></ion-input>
+        <ion-input [(ngModel)]="desk" placeholder="Insert Description" type="text" label="Description"></ion-input>
       </ion-item>
       <ion-button (click)="addTask()" expand="full">Add Task</ion-button>
     </ion-content>
@@ -76,7 +76,7 @@
         </ion-input>
       </ion-item>
       <ion-item>
-        <ion-input label="Description" [(ngModel)]="desc" placeholder="Insert Description" type="text">
+        <ion-input label="Description" [(ngModel)]="desk" placeholder="Insert Description" type="text">
         </ion-input>
       </ion-item>
       <ion-item>
